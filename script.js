@@ -46,11 +46,15 @@ function updateDisplay(value) {
     let boolForNumberValue = value==='0'||value==='1'||value==='2'||value==='3'||value==='4'||value==='5'||value==='6'||value==='7'||value==='8'||value==='9';
     let boolidek = boolForValue && operator !== '';
     if(value === 'AC'){
+        decimalOne = '';
+        decimalTwo = '';
         valueOne = '';
         valueTwo = '';
         result = '';
         operator = '';
         display.textContent = '';
+    } else if (value==='back'){
+        display.textContent = display.textContent.substring(0, display.textContent.length-1);
     } else if (value === '.'){
         let spreadingArr = [...display.textContent];
         if(!spreadingArr.includes('.')){
@@ -75,33 +79,37 @@ function updateDisplay(value) {
         }
         valueOne = Number(display.textContent);
         display.textContent = value;
-    } else if (value==='='||boolidek){
-        if(display.textContent.includes('.')){
-            let prepareValue = display.textContent.split(".")[1];
-            decimalTwo = prepareValue.length;
-            console.log(decimalTwo);
-        }
-        valueTwo = Number(display.textContent);
-        if(decimalOne!==''||decimalTwo!==''){
-            if(decimalOne>decimalTwo){
-                valueOne = valueOne*10**decimalOne;
-                valueTwo = valueTwo*10**decimalOne;
-                result = operate(valueOne, valueTwo, operator)/10**decimalOne;
-            } else {
-                valueOne = valueOne*10**decimalTwo;
-                valueTwo = valueTwo*10**decimalTwo;
-                result = operate(valueOne, valueTwo, operator)/10**decimalTwo;
-                console.log(valueOne)
-                console.log(valueTwo)
-            }
+    } else if ((value==='='||boolidek)){
+        if(value==='='&&operator===''){
+            console.log('Dont touch me if you arent done!');
         } else {
-            console.log(`${valueOne} . ${operator} . ${valueTwo}`);
-            result = operate(valueOne, valueTwo, operator);
+            if(display.textContent.includes('.')){
+                let prepareValue = display.textContent.split(".")[1];
+                decimalTwo = prepareValue.length;
+                console.log(decimalTwo);
+            }
+            valueTwo = Number(display.textContent);
+            if(decimalOne!==''||decimalTwo!==''){
+                if(decimalOne>decimalTwo){
+                    valueOne = valueOne*10**decimalOne;
+                    valueTwo = valueTwo*10**decimalOne;
+                    result = operate(valueOne, valueTwo, operator)/10**decimalOne;
+                } else {
+                    valueOne = valueOne*10**decimalTwo;
+                    valueTwo = valueTwo*10**decimalTwo;
+                    result = operate(valueOne, valueTwo, operator)/10**decimalTwo;
+                    console.log(valueOne)
+                    console.log(valueTwo)
+                }
+            } else {
+                console.log(`${valueOne} . ${operator} . ${valueTwo}`);
+                result = operate(valueOne, valueTwo, operator);
+            }
+            display.textContent = result;
+            valueOne = result;
+            valueTwo = '';
+            operator = '';
         }
-        display.textContent = result;
-        valueOne = result;
-        valueTwo = '';
-        operator = '';
     } else if (boolForValue && valueOne !==''){
         display.textContent=value;
     }
