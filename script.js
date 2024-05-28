@@ -40,6 +40,7 @@ function updateDisplay(value) {
     let boolForDisplay = display.textContent==="/"||display.textContent==="+"||display.textContent==="*"||display.textContent==="-";
     let boolForValue = value==='+'||value==='-'||value==='*'||value==='/';
     let boolForNumberValue = value==='0'||value==='1'||value==='2'||value==='3'||value==='4'||value==='5'||value==='6'||value==='7'||value==='8'||value==='9';
+    let boolidek = boolForValue && operator !== '';
     if(value === 'AC'){
         valueOne = '';
         valueTwo = '';
@@ -66,7 +67,7 @@ function updateDisplay(value) {
     } else if (boolForValue && valueOne!==''){
         display.textContent = value;
     }
-    if (value==='='){
+    if (value==='='||boolidek){
         valueTwo = Number(display.textContent);
         result = operate(valueOne, valueTwo, operator)
         display.textContent = result;
