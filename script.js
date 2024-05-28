@@ -24,6 +24,7 @@ let display = document.getElementById("value");
 let result = '';
 let decimalOne = '';
 let decimalTwo = '';
+let maxLen = 30;
 
 function operate(valueOne, valueTwo, operate){
     switch (operate){
@@ -53,6 +54,8 @@ function updateDisplay(value) {
         result = '';
         operator = '';
         display.textContent = '';
+    } else if(display.textContent.length>=maxLen&&!boolForValue){
+        console.log("sorry bro bro too big number dont fit!");
     } else if (value==='back'){
         display.textContent = display.textContent.substring(0, display.textContent.length-1);
     } else if (value === '.'){
@@ -115,5 +118,6 @@ function updateDisplay(value) {
     }
 
 }
+
 
 
