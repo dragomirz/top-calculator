@@ -1,3 +1,4 @@
+console.log(4.05+4.01);
 function add (a, b){
     return a + b;
 }
@@ -21,6 +22,7 @@ let valueTwo = '';
 let operator = '';
 let display = document.getElementById("value");
 let result = '';
+let spreadingString =''
 function operate(valueOne, valueTwo, operate){
     switch (operate){
         case '+':
@@ -47,14 +49,12 @@ function updateDisplay(value) {
         result = '';
         operator = '';
         display.textContent = '';
-    }
-    if(boolForNumberValue && !boolForDisplay){
+    } else if(boolForNumberValue && !boolForDisplay){
         display.textContent += value;
     } else if(boolForNumberValue && boolForDisplay && valueOne !== ''){
         if(boolForDisplay){
             operator = display.textContent;
             display.textContent = value;
-            console.log(operator);
         } else {
             display.textContent += value;
         }
@@ -63,17 +63,16 @@ function updateDisplay(value) {
     } else if(boolForValue && valueOne==='') {
         valueOne = Number(display.textContent);
         display.textContent = value;
-        console.log(valueOne);
-    } else if (boolForValue && valueOne!==''){
-        display.textContent = value;
-    }
-    if (value==='='||boolidek){
+    } else if (value==='='||boolidek){
         valueTwo = Number(display.textContent);
+        console.log(`${valueOne} . ${operator} . ${valueTwo}`);
         result = operate(valueOne, valueTwo, operator)
         display.textContent = result;
         valueOne = result;
         valueTwo = '';
         operator = '';
+    } else if (boolForValue && valueOne !==''){
+        display.textContent=value;
     }
 
 }
