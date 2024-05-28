@@ -118,6 +118,22 @@ function updateDisplay(value) {
     }
 
 }
+document.addEventListener('keydown', function (event) {
+    const key = event.key;
+    const validKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Delete'];
+    if (validKeys.includes(key)) {
+        if (key === 'Enter') {
+            updateDisplay('=');
+        } else if (key === 'Backspace') {
+            updateDisplay('back');
+        } else if (key === 'Delete') {
+            updateDisplay('AC');
+        } else {
+            updateDisplay(key);
+        }
+    }
+});
+
 
 
 
