@@ -1,4 +1,4 @@
-console.log(4.05+4.01);
+
 function add (a, b){
     return a + b;
 }
@@ -22,7 +22,9 @@ let valueTwo = '';
 let operator = '';
 let display = document.getElementById("value");
 let result = '';
-let spreadingString =''
+let decimalOne = '';
+let decimalTwo = '';
+
 function operate(valueOne, valueTwo, operate){
     switch (operate){
         case '+':
@@ -49,6 +51,11 @@ function updateDisplay(value) {
         result = '';
         operator = '';
         display.textContent = '';
+    } else if (value === '.'){
+        let spreadingArr = [...display.textContent];
+        if(!spreadingArr.includes('.')){
+            display.textContent+=value;
+        }
     } else if(boolForNumberValue && !boolForDisplay){
         display.textContent += value;
     } else if(boolForNumberValue && boolForDisplay && valueOne !== ''){
@@ -61,12 +68,36 @@ function updateDisplay(value) {
     } else if(boolForValue && boolForDisplay){
         display.textContent = value;
     } else if(boolForValue && valueOne==='') {
+        if(display.textContent.includes('.')){
+            let prepareValue = display.textContent.split(".")[1];
+            decimalOne = prepareValue.length;
+            console.log(decimalOne);
+        }
         valueOne = Number(display.textContent);
         display.textContent = value;
     } else if (value==='='||boolidek){
+        if(display.textContent.includes('.')){
+            let prepareValue = display.textContent.split(".")[1];
+            decimalTwo = prepareValue.length;
+            console.log(decimalTwo);
+        }
         valueTwo = Number(display.textContent);
-        console.log(`${valueOne} . ${operator} . ${valueTwo}`);
-        result = operate(valueOne, valueTwo, operator)
+        if(decimalOne!==''||decimalTwo!==''){
+            if(decimalOne>decimalTwo){
+                valueOne = valueOne*10**decimalOne;
+                valueTwo = valueTwo*10**decimalOne;
+                result = operate(valueOne, valueTwo, operator)/10**decimalOne;
+            } else {
+                valueOne = valueOne*10**decimalTwo;
+                valueTwo = valueTwo*10**decimalTwo;
+                result = operate(valueOne, valueTwo, operator)/10**decimalTwo;
+                console.log(valueOne)
+                console.log(valueTwo)
+            }
+        } else {
+            console.log(`${valueOne} . ${operator} . ${valueTwo}`);
+            result = operate(valueOne, valueTwo, operator);
+        }
         display.textContent = result;
         valueOne = result;
         valueTwo = '';
