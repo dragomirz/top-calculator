@@ -2,6 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .container{
@@ -39,4 +40,7 @@ body {
 }
 .value{
     margin: 5px;
+}
+h1{
+    font-size: 5em;
 }
